@@ -41,6 +41,7 @@ namespace ConsoleApp24
             return Math.Sqrt(Math.Pow(l1.Latitude - l2.Latitude, 2) + Math.Pow(l1.Longitude - l2.Longitude, 2));
         }
 
+       
 
         public List<Location> GetLocationsWithinRange(Location location, List<Location> neighbouringLocations, double distance)
         {

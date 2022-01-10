@@ -1,31 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ConsoleApp24
 {
     class Program
     {
+
+       
+
+
+        public static int GetNumOfPackages(DeliveryDrone drone, double[] weights , double distance )
+        {
+            int packageCounter = 0;
+            
+            for (int i = 0; i < weights.Length; i++)
+                {
+
+                    if (drone.CheckDeliverability(weights[i], distance))
+                    {
+                        packageCounter++;
+                    }
+
+                }
+            if (packageCounter < (weights.Length / 2))
+                throw new DeliveryException((double)packageCounter/weights.Length*100, "Less than half of the packages deliverable");
+
+            return packageCounter;
+        }
+
+
         static void Main(string[] args)
         {
-            Random randomGenerator = new Random();
-            
+            LowPowerDrone lpd = new LowPowerDrone(true, 1200, 50);
+
+            double[] weights = new double[4];
+
+
+            weights[0] = 50;
+            weights[1] = 100;
+            weights[2] = 300;
+            weights[3] = 400;
+
             int n;
-            n= int.Parse(Console.ReadLine());
-
-            List<SolarPanel> panels = new List<SolarPanel>();
-
-            for(int i=0; i<n; i++)
+            try
             {
-                panels.Add(new SolarPanel(randomGenerator.NextDouble()*9, randomGenerator.NextDouble() * 9, randomGenerator.NextDouble()));
-            }
 
-            for (int i = n/2; i < n; i++)
+               n =GetNumOfPackages(lpd, weights, 1337);
+
+            }
+            catch (DeliveryException e)
             {
-                panels.Add(new OldSolarPanel(randomGenerator.Next(0, 100), randomGenerator.NextDouble()*0.1, randomGenerator.NextDouble() * 9, randomGenerator.NextDouble() * 9, randomGenerator.NextDouble()));
+                Console.WriteLine(e.Message + " " + e.DeliveryPercentage); 
+
             }
-
-
-
         }
     }
 }

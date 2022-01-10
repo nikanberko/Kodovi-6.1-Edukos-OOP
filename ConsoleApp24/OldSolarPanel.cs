@@ -27,6 +27,13 @@ namespace ConsoleApp24
         {
             age++;
         }
-        
+        public override double GetYearlyEnergy()
+        {
+            double oldPanelEfficiency= Efficiency - age * agingFactor;
+            if (oldPanelEfficiency < 0.02) throw new EfficiencyException("Kod se raspo jer je efficiency manji od 0.02",oldPanelEfficiency );
+            return Height * Width * oldPanelEfficiency * 1300;
+
+        }
+
     }
 }

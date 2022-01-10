@@ -24,6 +24,12 @@ namespace ConsoleApp24
             efficiency = 0.2;
         }
 
+        public virtual double GetYearlyEnergy()
+        {
+            return height * width * efficiency * 1300;
+        }
+
+      
         public double Width { get => width; set => width = value; }
         public double Height { get => height; set => height = value; }
         public double Efficiency { get => efficiency; set => efficiency = value; }
